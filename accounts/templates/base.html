@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>{% block title %}Retail Management System{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Custom CSS (if any) -->
+    {% comment %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    {% endcomment %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Retail Management</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'product_list' %}">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'customer_list' %}">Customers</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Inventory
+              </a>
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <li>
+                  <a class="dropdown-item" href="{% url 'inventory_list' %}"
+                    >Stocks</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'supplier_list' %}"
+                    >Suppliers</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'restock_list' %}"
+                    >Restocks</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="ordersDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Orders
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="ordersDropdown">
+                <li>
+                  <a class="dropdown-item" href="{% url 'order_list' %}"
+                    >All Orders</a
+                  >
+                  <a class="dropdown-item" href="{% url 'create_order' %}"
+                    >New Order</a
+                  >
+                </li>
+              </ul>
+            </li>
+            {% comment %}
+            <div class="ml-auto">
+              <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            </div>
+            {% endcomment %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      {% block content %}
+      <h1>Welcome to Your Retail Management System!</h1>
+      <p>Effortlessly manage your products and customers.</p>
+      <a href="{% url 'product_list' %}" class="btn btn-warning btn-lg"
+        >Get Started</a
+      >
+      {% endblock %}
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

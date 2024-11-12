@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Restock List</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Supplier</th>
+                <th>Restock Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restock in restocks %}
+            <tr>
+                <td>{{ restock.product.name }}</td>
+                <td>{{ restock.quantity }}</td>
+                <td>{{ restock.supplier.name }}</td>
+                <td>{{ restock.restock_date }}</td>
+                <td>
+                    <a href="{% url 'restock_update' restock.pk %}" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="{% url 'restock_delete' restock.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'restock_create' %}" class="btn btn-success my-2">Add Restock Entry</a>
+</div>
+{% endblock %}

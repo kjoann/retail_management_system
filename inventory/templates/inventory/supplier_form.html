@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="my-4">{% if form.instance.pk %}Edit Supplier{% else %}Add Supplier{% endif %}</h2>
+    <form method="POST" class="form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'supplier_list' %}" class="btn btn-secondary">Back to Supplier List</a>
+    </form>
+</div>
+{% endblock %}
