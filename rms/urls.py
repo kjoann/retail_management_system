@@ -3,6 +3,7 @@ from django.urls import path, include
 from accounts import views
 from django.contrib.auth.views import LogoutView
 
+
 urlpatterns = [
     path('', views.landing, name='landing'),
     path('home/', views.home, name='home'),
