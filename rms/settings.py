@@ -112,6 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGIN_REDIRECT_URL = 'home'  # Redirect to the home page after login
 LOGOUT_REDIRECT_URL = 'login'  # Redirect to login page after logout
 LOGIN_URL = 'login'  # Where to redirect if a user is not logged in
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Internationalization

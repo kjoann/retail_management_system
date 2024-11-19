@@ -17,15 +17,11 @@ def create_customer(request):
 
 # List customers (Read)
 def customer_list(request):
-    customers_queryset = Customer.objects.all()
-    
-    paginator = Paginator(customers_queryset, 1000)
-    
-    page_number = request.GET.get('page', 1)
-    
-    customers_page = paginator.get_page(page_number)
-    
-    return render(request, 'customers/customer_list.html', {'customers': customers_page})
+    customers = Customer.objects.all()
+    paginator = Paginator(customers, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'customers/customer_list.html', {'page_obj': page_obj})
 
 
 # Update customer

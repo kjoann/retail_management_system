@@ -4,15 +4,12 @@ from .forms import ProductForm
 from django.core.paginator import Paginator
 
 def product_list(request):
-    products_queryset = Product.objects.all()
-    
-    paginator = Paginator(products_queryset, 1000)
-    
-    page_number = request.GET.get('page', 1)
-    
-    products_page = paginator.get_page(page_number)
-    
-    return render(request, 'products/list.html', {'products': products_page})
+    products = Product.objects.all()  # Retrieve all products
+    paginator = Paginator(products, 10)  # Show 10 products per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)  # Get the appropriate page
+
+    return render(request, 'products/list.html', {'page_obj': page_obj})
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)

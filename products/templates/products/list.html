@@ -1,6 +1,9 @@
-{% extends 'base.html' %} {% block title %}Product List{% endblock %} 
+{% extends 'base.html' %} 
+{% block title %}Product List{% endblock %} 
+
 {% block content %}
 <h1>Product List</h1>
+
 <table class="table table-bordered table-striped">
   <thead class="table-dark">
     <tr>
@@ -11,7 +14,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for product in products %}
+    {% for product in page_obj %}
     <tr>
       <td>{{ product.id }}</td>
       <td>
@@ -19,12 +22,8 @@
       </td>
       <td>{{ product.price }}</td>
       <td>
-        <a href="{% url 'product_update' product.id %}" class="btn btn-warning"
-          >Edit</a
-        >
-        <a href="{% url 'product_delete' product.id %}" class="btn btn-danger"
-          >Delete</a
-        >
+        <a href="{% url 'product_update' product.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'product_delete' product.id %}" class="btn btn-danger">Delete</a>
       </td>
     </tr>
     {% empty %}
@@ -34,5 +33,68 @@
     {% endfor %}
   </tbody>
 </table>
+
+<!-- Pagination Controls -->
+<nav aria-label="Page navigation" class="mt-4">
+  <ul class="pagination justify-content-center">
+    <!-- First and Previous -->
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1" aria-label="First">
+          &laquo;&laquo;
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+          &laquo;
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" aria-label="First">
+          &laquo;&laquo;
+        </a>
+      </li>
+      <li class="page-item disabled">
+        <a class="page-link" href="#" aria-label="Previous">
+          &laquo;
+        </a>
+      </li>
+    {% endif %}
+
+    <!-- Page Numbers -->
+    {% for page in page_obj.paginator.page_range %}
+      <li class="page-item {% if page == page_obj.number %}active{% endif %}">
+        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+      </li>
+    {% endfor %}
+
+    <!-- Next and Last -->
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+          &raquo;
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+          &raquo;&raquo;
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" aria-label="Next">
+          &raquo;
+        </a>
+      </li>
+      <li class="page-item disabled">
+        <a class="page-link" href="#" aria-label="Last">
+          &raquo;&raquo;
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+
 <a href="{% url 'product_create' %}" class="btn btn-primary">Add New Product</a>
 {% endblock %}

@@ -2,10 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Order, OrderItem
 from .forms import OrderForm, OrderItemForm
 from django.forms import modelformset_factory
+from django.core.paginator import Paginator
 
 def order_list(request):
     orders = Order.objects.all()
-    return render(request, 'orders/order_list.html', {'orders': orders})
+    paginator = Paginator(orders, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'orders/order_list.html', {'page_obj': page_obj})
 
 def create_order(request):
     if request.method == "POST":
