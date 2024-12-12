@@ -3,10 +3,26 @@ from django.urls import reverse
 from .models import InventoryItem, Supplier, Restock
 from .forms import InventoryItemForm, SupplierForm, RestockForm
 from django.core.paginator import Paginator
+from inventory.models import InventoryItem  # Import InventoryItem
+
+def inventory_insights(request):
+    # Fetch products with low stock (e.g., quantity <= 10)
+    low_stock = InventoryItem.objects.filter(quantity__lte=10)
+
+    # Prepare data for the chart (product names and their quantities)
+    stock_data = InventoryItem.objects.values('product__name', 'quantity')
+
+    context = {
+        'low_stock': low_stock,
+        'stock_data': list(stock_data),  # Convert queryset to a list for JSON compatibility
+    }
+    return render(request, 'inventory/insights.html', context)
+
+
 
 # Inventory CRUD Views
 def inventory_list(request):
-    inventory_queryset = InventoryItem.objects.all()
+    inventory_queryset = InventoryItem.objects.all().order_by('product')
     
     paginator = Paginator(inventory_queryset, 1000)
     

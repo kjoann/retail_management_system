@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Customer
 from .forms import CustomerForm
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 
 
 # Create a new customer
@@ -17,11 +18,14 @@ def create_customer(request):
 
 # List customers (Read)
 def customer_list(request):
-    customers = Customer.objects.all()
-    paginator = Paginator(customers, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'customers/customer_list.html', {'page_obj': page_obj})
+    # customers = Customer.objects.all()
+    # paginator = Paginator(customers, 10)
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
+    # return render(request, 'customers/customer_list.html', {'page_obj': page_obj})
+    customers = Customer.objects.all().values('id', 'name', 'email', 'phone_number', 'address')
+    
+    return JsonResponse({'customers': list(customers)})
 
 
 # Update customer

@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     # Inventory CRUD URLs
     path('inventory/', views.inventory_list, name='inventory_list'),
@@ -19,4 +20,6 @@ urlpatterns = [
     path('restocks/create/', views.restock_create, name='restock_create'),
     path('restocks/update/<int:pk>/', views.restock_update, name='restock_update'),
     path('restocks/delete/<int:pk>/', views.restock_delete, name='restock_delete'),
+    
+    path('insights/', views.inventory_insights, name='inventory_insights'),
 ]

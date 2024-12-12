@@ -16,14 +16,19 @@ A Django-based Retail Management System to efficiently manage products, inventor
 ```
 retail_management_system/
 │
+├── accounts/
 ├── customers/
+├── eda/
+├── env/
 ├── inventory/
 ├── orders/
 ├── products/
-├── retail_management_system/
+├── rms/
 │
+├── .gitignore
 ├── manage.py
-└── .gitignore
+├── README.md
+└── requirements.txt
 ```
 
 ## Installation
@@ -44,9 +49,9 @@ retail_management_system/
    ```
 3. Create and activate a virtual environment:
    ```bash
-   python -m venv venv
-   venv\Scripts\activate  # For Windows
-   source venv/bin/activate  # For MacOS/Linux
+   python -m venv env
+   env\Scripts\activate  # For Windows
+   source env/bin/activate  # For MacOS/Linux
    ```
 4. Install the dependencies:
    ```bash
